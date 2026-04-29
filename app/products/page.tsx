@@ -2,7 +2,7 @@
 
 import NextLink from "next/link";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useLanguage } from "@/lib/LanguageContext";
 
@@ -32,10 +32,10 @@ interface PaginationData {
   currentPage: number;
 }
 
-export default function ProductsPage() {
+function ProductsContent() {
   const searchParams = useSearchParams();
   const { t, language, translateDynamic } = useLanguage();
-  const categories = getCategories(t);
+  const categories = useMemo(() => getCategories(t), [t]);
   const page = parseInt(searchParams.get("page") || "1");
   const categoryId = searchParams.get("category");
   const activeCategory = categories.find((cat) => cat.id === categoryId);
@@ -65,13 +65,13 @@ export default function ProductsPage() {
       }
     }
     fetchProducts();
-  }, [page, categoryId]);
+  }, [page, categoryId, language]);
 
   return (
-    <div className="bg-[var(--background)] min-h-screen">
+    <div className="bg-background min-h-screen">
       {/* Phần 1: Inner Banner */}
       <section className="relative w-full">
-        <div className="relative w-full aspect-[1920/450] md:h-[450px] overflow-hidden flex items-center justify-center">
+        <div className="relative w-full h-62.5 md:h-auto md:aspect-1920/450 overflow-hidden flex items-center justify-center">
           <Image
             src={`${WP_URL}/wp-content/uploads/2026/04/Products1.jpg`}
             alt="Products"
@@ -120,7 +120,7 @@ export default function ProductsPage() {
             className="flex items-center gap-2 transition-all duration-400 hover:text-[#cf2e2e]"
           >
             <div
-              className="w-[18px] h-[18px] bg-no-repeat bg-left center"
+              className="w-4.5 h-4.5 bg-no-repeat bg-left center"
               style={{
                 backgroundImage: `url(${WP_URL}/wp-content/uploads/2026/04/home-icon.png)`,
                 backgroundSize: "contain",
@@ -147,14 +147,14 @@ export default function ProductsPage() {
       </div>
 
       {/* Phần 3: Product List */}
-      <section className="max-w-[1440px] mx-auto px-[20px] pb-[80px]">
+      <section className="max-w-360 mx-auto px-5 pb-20">
         {loading ? (
           <div className="flex justify-center py-20">
             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#C8102E]"></div>
           </div>
         ) : (
           <>
-            <ul className="grid grid-cols-1 md:grid-cols-3 gap-[2%] gap-y-[50px]">
+            <ul className="grid grid-cols-1 md:grid-cols-3 gap-[2%] gap-y-12.5">
               {products.map((product) => (
                 <li
                   key={product.id}
@@ -162,7 +162,7 @@ export default function ProductsPage() {
                 >
                   <NextLink
                     href={product.link}
-                    className="block overflow-hidden aspect-[15/8] relative"
+                    className="block overflow-hidden aspect-15/8 relative"
                   >
                     <Image
                       src={product.image}
@@ -216,7 +216,7 @@ export default function ProductsPage() {
 
                       <NextLink
                         href={product.link}
-                        className="w-[135px] h-[30px] border-2 border-[#C8102E] rounded-[15px] leading-[26px] text-center font-medium text-[#C8102E] text-[14px] transition-all duration-[600ms] hover:bg-[#C8102E] hover:text-white"
+                        className="w-33.75 h-7.5 border-2 border-[#C8102E] rounded-[15px] leading-6.5 text-center font-medium text-[#C8102E] text-[14px] transition-all duration-600 hover:bg-[#C8102E] hover:text-white"
                       >
                         {t("Products", "learnMore")}
                       </NextLink>
@@ -261,5 +261,19 @@ export default function ProductsPage() {
         )}
       </section>
     </div>
+  );
+}
+
+export default function ProductsPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="bg-background min-h-screen flex items-center justify-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#C8102E]"></div>
+        </div>
+      }
+    >
+      <ProductsContent />
+    </Suspense>
   );
 }

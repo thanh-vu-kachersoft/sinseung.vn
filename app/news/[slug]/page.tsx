@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, use } from "react";
+import { useEffect, useState, use, Suspense } from "react";
 import Image from "next/image";
 import NextLink from "next/link";
 import { useLanguage } from "@/lib/LanguageContext";
@@ -33,12 +33,7 @@ interface RelatedPost {
   link: string;
 }
 
-export default function SingleNewsPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = use(params);
+function NewsDetailContent({ slug }: { slug: string }) {
   const { t, language, translateDynamic } = useLanguage();
 
   const [post, setPost] = useState<PostDetail | null>(null);
@@ -441,5 +436,25 @@ export default function SingleNewsPage({
         </div>
       </section>
     </div>
+  );
+}
+
+export default function SingleNewsPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = use(params);
+
+  return (
+    <Suspense
+      fallback={
+        <div className="bg-background min-h-screen flex items-center justify-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#e83428]"></div>
+        </div>
+      }
+    >
+      <NewsDetailContent slug={slug} />
+    </Suspense>
   );
 }
