@@ -68,21 +68,24 @@ function NewsDetailContent({ slug }: { slug: string }) {
           const extractedHeadings: Heading[] = [];
           let hIndex = 0;
           const processedContent = rawContent.replace(
-            /<h([1-3])(.*?)>(.*?)<\/h\1>/gi,
+            /<h([1-6])(.*?)>(.*?)<\/h\1>/gi,
             (match: string, level: string, attrs: string, text: string) => {
               const cleanText = text.replace(/<[^>]*>?/gm, "").trim();
               if (!cleanText) return match;
 
-              const id = `heading-${hIndex++}`;
+              // Extract existing ID if present to avoid mismatch
+              const idMatch = attrs.match(/id=["'](.*?)["']/);
+              const id = idMatch ? idMatch[1] : `heading-${hIndex++}`;
+
               extractedHeadings.push({
                 id,
                 text: cleanText,
                 level: parseInt(level),
               });
 
-              // We replace or add id attribute
-              if (attrs.includes("id=")) {
-                return match; // Keep original if id exists
+              // If ID already exists in HTML, keep it, otherwise inject generated one
+              if (idMatch) {
+                return match;
               }
               return `<h${level}${attrs} id="${id}">${text}</h${level}>`;
             },
