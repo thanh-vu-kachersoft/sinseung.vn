@@ -31,6 +31,22 @@ const openSansCondensed = Open_Sans({
 export const metadata: Metadata = {
   title: "Sinseung VIET NAM",
   description: "Sinseung VIET NAM - High Quality Precision Cutting Tools",
+  openGraph: {
+    title: "Sinseung VIET NAM",
+    description: "Sinseung VIET NAM - High Quality Precision Cutting Tools",
+    url: "https://sinseung.vn",
+    siteName: "Sinseung VIET NAM",
+    images: [
+      {
+        url: "https://magenta-stork-113658.hostingersite.com/wp-content/uploads/2026/04/2026-04-24-10.29.25.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Sinseung VIET NAM Logo",
+      },
+    ],
+    locale: "vi_VN",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
