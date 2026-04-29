@@ -1,26 +1,172 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+    --background: #f5f5f0;
+    --foreground: #171717;
+    --font-scale: 1; /* Hệ số co giãn mặc định */
+}
+
+/* Điều chỉnh tỷ lệ và font theo ngôn ngữ: Tiếng Việt dài hơn nên thu nhỏ lại (~6%), Tiếng Hàn gọn hơn nên phóng to (~6%) */
+html[lang="vi"] {
+    --font-scale: 0.94;
+    font-family:
+        var(--font-open-sans-condensed), "OpenSansCondensed", "HelveticaNeue",
+        "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+}
+
+html[lang="vi"] body,
+html[lang="vi"] * {
+    font-family:
+        var(--font-open-sans-condensed), "OpenSansCondensed", "HelveticaNeue",
+        "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+}
+html[lang="ko"] {
+    --font-scale: 1.06;
+}
+
+html {
+    /* Fluid Typography & Global Scaling System */
+    /* Cơ chế: 1rem = 16px tại màn hình rộng 1920px (16 / 1920 * 100 = 0.8333vw) */
+    /* Vì Tailwind mặc định sử dụng đơn vị 'rem' cho hầu hết các class, việc này sẽ co giãn TOÀN BỘ element */
+    font-size: calc(0.833333vw * var(--font-scale));
+}
+
+/* Cấu hình cho các kích thước màn hình khác nhau */
+@media (max-width: 1440px) {
+    html {
+        font-size: calc(1.111vw * var(--font-scale)); /* 16px tại 1440px */
+    }
+}
+
+@media (max-width: 1024px) {
+    html {
+        font-size: calc(1.5625vw * var(--font-scale)); /* 16px tại 1024px */
+    }
+}
+
+@media (max-width: 768px) {
+    html {
+        /* Trên Mobile, giữ kích thước chữ và nút bấm đủ lớn cho ngón tay */
+        font-size: calc(16px * var(--font-scale));
+    }
+}
+
+@media (min-width: 2560px) {
+    html {
+        /* Giới hạn kích thước tối đa cho màn hình siêu lớn (2K, 4K) */
+        font-size: calc(21.33px * var(--font-scale));
+    }
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --font-sans: var(--font-geist-sans);
+    --font-mono: var(--font-geist-mono);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-poppins), Arial, Helvetica, sans-serif;
+}
+
+/* Force global background color #F5F5F0 on white and light gray sections */
+.bg-white,
+.bg-gray-50,
+.bg-zinc-50,
+.bg-slate-50 {
+    background-color: var(--background) !important;
+}
+
+/* Mega menu underline effect (WP-like) */
+.menu-underline {
+    position: relative;
+}
+
+.menu-underline::before {
+    content: "";
+    display: table;
+}
+
+.menu-underline::after {
+    content: "";
+    width: 48px;
+    height: 4px;
+    background: #c8102e;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    transition: all 0.5s;
+    opacity: 0;
+    transform: translateX(30px);
+}
+
+.menu-underline.is-active::after,
+.menu-underline:hover::after,
+.menu-underline:focus-visible::after {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Ẩn biểu tượng Vercel Toolbar (chữ N) */
+#vc-toolbar-host,
+.vc-toolbar-host,
+[data-vercel-toolbar],
+vercel-live-feedback {
+    display: none !important;
+}
+
+/* Cân bằng padding cho phần bản quyền ở Footer */
+footer {
+    padding-bottom: 0 !important; /* Gỡ bỏ padding-bottom của container chính */
+}
+
+footer .border-t {
+    padding-bottom: 2rem !important; /* Đặt padding-bottom bằng với padding-top (pt-8) là 2rem */
+}
+
+/* Force global color #C8102E on specific elements */
+.text-red-500,
+.text-red-600,
+.bg-red-600,
+.border-red-500,
+.focus\:ring-red-500:focus {
+    --tw-text-opacity: 1;
+    color: #c8102e !important;
+}
+
+.bg-red-500,
+.bg-red-600 {
+    --tw-bg-opacity: 1;
+    background-color: #c8102e !important;
+}
+
+/* Logo Carousel Loop Animation */
+@keyframes logo-loop {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+.logo-loop-wrapper {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding: 2rem 0;
+}
+
+.logo-loop-container {
+    display: flex;
+    width: max-content;
+    animation: logo-loop 40s linear infinite;
+    gap: 4rem;
+    align-items: center;
+}
+
+.logo-loop-container:hover {
+    animation-play-state: paused;
 }

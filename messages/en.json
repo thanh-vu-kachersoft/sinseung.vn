@@ -1,0 +1,26 @@
+{
+  "Header": {
+    "home": "Home",
+    "products": "Products",
+    "application": "Application",
+    "news": "News",
+    "video": "Video",
+    "about": "About",
+    "contact": "Contact Us",
+    "search": "Search..."
+  },
+  "Products": {
+    "title": "Products",
+    "learnMore": "Learn more",
+    "chatNow": "Chat Now",
+    "message": "Message",
+    "categories": "Categories"
+  },
+  "Footer": {
+    "address": "Address",
+    "tel": "Tel",
+    "quickLinks": "Quick Links",
+    "followUs": "Follow Us",
+    "rights": "All rights reserved by SINSEUNG TOOLS CORPORATION."
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "Header": {
+    "home": "Trang chủ",
+    "products": "Sản phẩm",
+    "application": "Ứng dụng",
+    "news": "Tin tức",
+    "video": "Video",
+    "about": "Giới thiệu",
+    "contact": "Liên hệ",
+    "search": "Tìm kiếm..."
+  },
+  "Products": {
+    "title": "Sản phẩm",
+    "learnMore": "Tìm hiểu thêm",
+    "chatNow": "Chat ngay",
+    "message": "Nhắn tin",
+    "categories": "Danh mục"
+  },
+  "Footer": {
+    "address": "Địa chỉ",
+    "tel": "SĐT",
+    "quickLinks": "Liên kết nhanh",
+    "followUs": "Theo dõi chúng tôi",
+    "rights": "Bản quyền thuộc về SINSEUNG TOOLS CORPORATION."
+  }
+}
