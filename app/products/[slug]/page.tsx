@@ -58,10 +58,12 @@ export default function SingleProductPage({
             firstImgFromContent ||
             "";
 
-          if (imgUrl.includes("localhost:3000")) {
-            imgUrl = imgUrl.replace("http://localhost:3000", WP_URL);
+          // Force correct domain for WordPress images
+          if (imgUrl && imgUrl.includes("/wp-content/")) {
+            const pathIndex = imgUrl.indexOf("/wp-content/");
+            imgUrl = `${WP_URL}${imgUrl.substring(pathIndex)}`;
           } else if (imgUrl && !imgUrl.startsWith("http")) {
-            imgUrl = `${WP_URL}${imgUrl}`;
+            imgUrl = `${WP_URL}${imgUrl.startsWith("/") ? "" : "/"}${imgUrl}`;
           }
 
           setProduct({

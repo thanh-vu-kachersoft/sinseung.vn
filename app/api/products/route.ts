@@ -35,15 +35,33 @@ export async function GET(request: Request) {
     const products = await response.json();
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const transformedProducts = products.map((product: any) => ({
-      id: product.id,
-      name: product.title?.rendered || "Untitled Product",
-      slug: product.slug,
-      image:
-        product._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
-        `${WP_URL}/wp-content/uploads/2026/04/lQDPKc2ZC2jvbS3NAljNA4SwoyOPW5nVu8cIXZS0yelSAQ_900_600.jpg`,
-      link: `/products/${product.slug}`,
-    }));
+    const transformedProducts = products.map((product: any) => {
+      let imageUrl =
+        product._embedded?.["wp:featuredmedia"]?.[0]?.source_url || "";
+
+      // Fallback to first image in content if featured image is missing
+      if (!imageUrl) {
+        const content = product.content?.rendered || "";
+        const imgMatch = content.match(/<img [^>]*src="([^"]+)"/);
+        imageUrl = imgMatch ? imgMatch[1] : "";
+      }
+
+      // Force correct domain for WordPress images
+      if (imageUrl && imageUrl.includes("/wp-content/")) {
+        const pathIndex = imageUrl.indexOf("/wp-content/");
+        imageUrl = `${WP_URL}${imageUrl.substring(pathIndex)}`;
+      } else if (!imageUrl) {
+        imageUrl = `${WP_URL}/wp-content/uploads/2026/04/lQDPKc2ZC2jvbS3NAljNA4SwoyOPW5nVu8cIXZS0yelSAQ_900_600.jpg`;
+      }
+
+      return {
+        id: product.id,
+        name: product.title?.rendered || "Untitled Product",
+        slug: product.slug,
+        image: imageUrl,
+        link: `/products/${product.slug}`,
+      };
+    });
 
     return NextResponse.json({
       products: transformedProducts,
