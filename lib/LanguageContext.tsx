@@ -12,6 +12,7 @@ interface LanguageContextType {
   fontSizeScale: number; // Hệ số điều chỉnh font size cho từng ngôn ngữ
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const translations: Record<LanguageCode, any> = {
   en: {
     scale: 1,
@@ -453,6 +454,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const savedLang = localStorage.getItem("language") as LanguageCode;
     if (savedLang && ["en", "vi", "ko"].includes(savedLang)) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setLanguageState(savedLang);
     }
   }, []);

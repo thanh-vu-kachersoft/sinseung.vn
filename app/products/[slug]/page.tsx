@@ -96,7 +96,7 @@ export default function SingleProductPage({
       } else {
         alert("Failed to send message. Please try again.");
       }
-    } catch (err) {
+    } catch {
       alert("Error submitting form.");
     } finally {
       setIsSubmitting(false);

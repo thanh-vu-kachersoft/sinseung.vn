@@ -58,13 +58,6 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "No message" }, { status: 400 });
     }
 
-    const langLabel =
-      language === "vi"
-        ? "Tiếng Việt"
-        : language === "ko"
-          ? "Korean"
-          : "English";
-
     // 1. Check Cache
     const cacheKey = `${language}-${message.toLowerCase().trim()}`;
     if (memoryCache[cacheKey]) {
@@ -110,7 +103,7 @@ export async function POST(request: Request) {
               },
             ],
           },
-          ...history.map((h: any) => ({
+          ...history.map((h: { role: string; content: string }) => ({
             role: h.role === "user" ? "user" : "model",
             parts: [{ text: h.content }],
           })),
@@ -128,7 +121,7 @@ export async function POST(request: Request) {
       };
 
       return NextResponse.json({ reply: text });
-    } catch (apiError: any) {
+    } catch (apiError: unknown) {
       console.error("Gemini API Error:", apiError);
 
       // SEARCH FALLBACK KHI API BỊ LỖI QUOTA HOẶC MẠNG
@@ -176,7 +169,7 @@ export async function POST(request: Request) {
         isFallback: true,
       });
     }
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Fatal AI Chat Error:", error);
     return NextResponse.json({
       reply:

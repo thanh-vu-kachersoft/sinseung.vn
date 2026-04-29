@@ -50,7 +50,7 @@ export default function LanguageSwitcher() {
   }, []);
 
   const handleLanguageChange = (lang: Language) => {
-    setLanguage(lang.code as any);
+    setLanguage(lang.code as "en" | "vi" | "ko");
     setIsOpen(false);
   };
 

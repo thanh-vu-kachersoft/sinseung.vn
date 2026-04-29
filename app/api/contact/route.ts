@@ -57,13 +57,14 @@ export async function POST(request: Request) {
     try {
       await transporter.verify();
       console.log("SMTP Connection verified successfully");
-    } catch (verifyError: any) {
+    } catch (verifyError: unknown) {
       console.error("SMTP Verification Failed:", verifyError);
+      const err = verifyError as { message?: string; code?: string | number };
       return NextResponse.json(
         {
           error: "Could not connect to email server",
-          details: verifyError.message,
-          code: verifyError.code,
+          details: err.message,
+          code: String(err.code || ""),
         },
         { status: 500 },
       );
@@ -101,7 +102,7 @@ export async function POST(request: Request) {
       success: true,
       message: "Email sent successfully",
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Fatal Error in Contact API:", error);
     return NextResponse.json(
       {

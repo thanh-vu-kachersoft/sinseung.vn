@@ -14,6 +14,7 @@ export async function GET(request: Request) {
   const perPage = parseInt(perPageStr);
 
   try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let posts: any[] = [];
     let totalItems = 0;
     let totalPages = 0;
@@ -85,7 +86,8 @@ export async function GET(request: Request) {
 
     // 3. Transform dữ liệu trả về cho Frontend
     const transformedPosts = Array.isArray(posts)
-      ? posts.map((post: any) => {
+      ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        posts.map((post: any) => {
           const content = post.content?.rendered || "";
 
           // Trích xuất hình ảnh đầu tiên từ nội dung
@@ -131,6 +133,7 @@ export async function GET(request: Request) {
       },
     });
   } catch (error: any) {
+    // eslint-disable-line @typescript-eslint/no-explicit-any
     console.error("Error fetching posts:", error);
     return NextResponse.json(
       { error: "Failed to fetch posts", details: error.message },

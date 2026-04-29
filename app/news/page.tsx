@@ -17,16 +17,6 @@ const getNewsCategories = (t: any) => [
   { name: t("Header", "news_company"), id: "33" },
 ];
 
-interface Post {
-  id: number;
-  title: string;
-  date: string;
-  excerpt: string;
-  image: string;
-  link: string;
-  slug: string;
-}
-
 interface PaginationData {
   total: number;
   totalPages: number;

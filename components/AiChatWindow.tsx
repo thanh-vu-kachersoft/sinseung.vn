@@ -9,7 +9,7 @@ interface Message {
 }
 
 export default function AiChatWindow() {
-  const { t, language } = useLanguage();
+  const { language } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");

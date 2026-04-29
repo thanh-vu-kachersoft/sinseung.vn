@@ -34,6 +34,7 @@ export async function GET(request: Request) {
     const totalItems = response.headers.get("X-WP-Total") || "0";
     const products = await response.json();
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const transformedProducts = products.map((product: any) => ({
       id: product.id,
       name: product.title?.rendered || "Untitled Product",
@@ -52,6 +53,7 @@ export async function GET(request: Request) {
         currentPage: parseInt(page),
       },
     });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.error("Error fetching products:", error);
     return NextResponse.json(

@@ -10,7 +10,7 @@ const WP_URL =
   "https://magenta-stork-113658.hostingersite.com";
 
 export default function ContactUsPage() {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState({

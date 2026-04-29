@@ -18,14 +18,6 @@ const getCategories = (t: any) => [
   { name: t("Header", "cat_garden"), id: "28" },
 ];
 
-interface Product {
-  id: number;
-  name: string;
-  image: string;
-  link: string;
-  slug: string;
-}
-
 interface PaginationData {
   total: number;
   totalPages: number;

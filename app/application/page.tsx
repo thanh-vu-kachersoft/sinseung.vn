@@ -18,7 +18,7 @@ const applicationPosts = [
 ];
 
 export default function ApplicationPage() {
-  const { t, language, translateDynamic } = useLanguage();
+  const { t, translateDynamic } = useLanguage();
 
   return (
     <div className="bg-[var(--background)] min-h-screen">

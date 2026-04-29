@@ -10,14 +10,6 @@ const WP_URL =
   process.env.NEXT_PUBLIC_WORDPRESS_URL ||
   "https://magenta-stork-113658.hostingersite.com";
 
-interface Product {
-  id: number;
-  name: string;
-  image: string;
-  link: string;
-  slug: string;
-}
-
 interface PaginationData {
   total: number;
   totalPages: number;
