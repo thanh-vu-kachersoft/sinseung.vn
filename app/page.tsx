@@ -162,7 +162,7 @@ export default function Home() {
   };
 
   return (
-    <div className="bg-background">
+    <div className="bg-background" style={{paddingBottom: "30px"}}>
       {/* Dynamic Banner Carousel */}
       <section className="relative w-full overflow-hidden bg-gray-900">
         <div className="relative w-full h-[60vh] md:h-auto md:aspect-1920/955 max-h-[90vh]">
