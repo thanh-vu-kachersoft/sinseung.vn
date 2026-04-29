@@ -106,7 +106,7 @@ function NewsContent() {
 
       {/* Phần 2: Crumbs Box */}
       {/* Crumbs Box */}
-      <div className="max-w-[1400px] mx-auto px-5">
+      <div className="max-w-[1440px] mx-auto px-5">
         <div className="py-10 flex items-center gap-2 text-[18px] text-[#494949]">
           <NextLink
             href="/"
