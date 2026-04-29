@@ -53,11 +53,11 @@ export async function GET(request: Request) {
         currentPage: parseInt(page),
       },
     });
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const err = error as { message?: string };
     console.error("Error fetching products:", error);
     return NextResponse.json(
-      { error: "Failed to fetch products", details: error.message },
+      { error: "Failed to fetch products", details: err.message },
       { status: 500 },
     );
   }

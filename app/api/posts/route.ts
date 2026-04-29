@@ -132,11 +132,11 @@ export async function GET(request: Request) {
         currentPage: page,
       },
     });
-  } catch (error: any) {
-    // eslint-disable-line @typescript-eslint/no-explicit-any
+  } catch (error: unknown) {
+    const err = error as { message?: string };
     console.error("Error fetching posts:", error);
     return NextResponse.json(
-      { error: "Failed to fetch posts", details: error.message },
+      { error: "Failed to fetch posts", details: err.message },
       { status: 500 },
     );
   }

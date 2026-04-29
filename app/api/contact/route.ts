@@ -104,11 +104,12 @@ export async function POST(request: Request) {
     });
   } catch (error: unknown) {
     console.error("Fatal Error in Contact API:", error);
+    const err = error as { message?: string; code?: string | number };
     return NextResponse.json(
       {
         error: "Server Error",
-        details: error.message,
-        code: error.code || "UNKNOWN_ERROR",
+        details: err.message,
+        code: String(err.code || "UNKNOWN_ERROR"),
       },
       { status: 500 },
     );
