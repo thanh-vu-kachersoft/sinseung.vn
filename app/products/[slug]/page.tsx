@@ -49,7 +49,15 @@ export default function SingleProductPage({
 
         if (data && data.length > 0) {
           const p = data[0];
-          let imgUrl = p._embedded?.["wp:featuredmedia"]?.[0]?.source_url || "";
+          const content = p.content?.rendered || "";
+          const imgMatch = content.match(/<img [^>]*src="([^"]+)"/);
+          const firstImgFromContent = imgMatch ? imgMatch[1] : "";
+
+          let imgUrl =
+            p._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
+            firstImgFromContent ||
+            "";
+
           if (imgUrl.includes("localhost:3000")) {
             imgUrl = imgUrl.replace("http://localhost:3000", WP_URL);
           } else if (imgUrl && !imgUrl.startsWith("http")) {
@@ -108,19 +116,19 @@ export default function SingleProductPage({
       id: "s102",
       name: "S102 9mm snap off blades",
       image: `${WP_URL}/wp-content/uploads/2026/04/S102-9mm-snap-off-blades.1-300x200.jpg`,
-      link: "/cutter-blades/9mm-blades/s102-9mm-snap-off-blades/",
+      link: "/products/s102-9mm-snap-off-blades",
     },
     {
       id: "s103",
       name: "S103 9mm snap off blades",
       image: `${WP_URL}/wp-content/uploads/2026/04/S103-9mm-snap-off-blades.1-300x200.jpg`,
-      link: "/cutter-blades/9mm-blades/s103-9mm-snap-off-blades/",
+      link: "/products/s103-9mm-snap-off-blades",
     },
     {
       id: "s301",
       name: "S301 9mm snap off blades",
       image: `${WP_URL}/wp-content/uploads/2026/04/S301-9mm-snap-off-blades.1-300x200.jpg`,
-      link: "/cutter-blades/9mm-blades/s301-9mm-snap-off-blades/",
+      link: "/products/s301-9mm-snap-off-blades",
     },
   ];
 
@@ -210,9 +218,8 @@ export default function SingleProductPage({
             >
               <Image
                 src={
-                  product.image && product.image.startsWith("http")
-                    ? product.image.replace("http://localhost:3000", WP_URL)
-                    : `${WP_URL}/wp-content/uploads/2026/04/lQDPKc2ZC2jvbS3NAljNA4SwoyOPW5nVu8cIXZS0yelSAQ_900_600.jpg`
+                  product.image ||
+                  `${WP_URL}/wp-content/uploads/2026/04/Products1.jpg`
                 }
                 alt={product.name}
                 fill

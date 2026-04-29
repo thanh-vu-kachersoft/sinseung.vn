@@ -63,19 +63,19 @@ export default function ApplicationDetailPage() {
       id: "s102",
       name: "S102 9mm snap off blades",
       image: `${WP_URL}/wp-content/uploads/2026/04/S102-9mm-snap-off-blades.1-300x200.jpg`,
-      link: "/cutter-blades/9mm-blades/s102-9mm-snap-off-blades/",
+      link: "/products/s102-9mm-snap-off-blades",
     },
     {
       id: "s103",
       name: "S103 9mm snap off blades",
       image: `${WP_URL}/wp-content/uploads/2026/04/S103-9mm-snap-off-blades.1-300x200.jpg`,
-      link: "/cutter-blades/9mm-blades/s103-9mm-snap-off-blades/",
+      link: "/products/s103-9mm-snap-off-blades",
     },
     {
       id: "s301",
       name: "S301 9mm snap off blades",
       image: `${WP_URL}/wp-content/uploads/2026/04/S301-9mm-snap-off-blades.1-300x200.jpg`,
-      link: "/cutter-blades/9mm-blades/s301-9mm-snap-off-blades/",
+      link: "/products/s301-9mm-snap-off-blades",
     },
   ];
 
