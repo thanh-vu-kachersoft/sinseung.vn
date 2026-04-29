@@ -122,10 +122,10 @@ export default function AiChatWindow() {
 
       {/* Chat Window - Positioned to the LEFT of the icons */}
       <div
-        className={`fixed right-[100px] bottom-10 w-[90vw] md:w-[450px] max-h-[80vh] h-[650px] bg-white rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.2)] z-[10000] flex flex-col overflow-hidden transition-all duration-500 border border-black/5 ${
+        className={`fixed right-4 md:right-[100px] bottom-4 md:bottom-10 w-[calc(100vw-32px)] md:w-[450px] max-h-[85vh] md:max-h-[80vh] h-[600px] md:h-[650px] bg-white rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.2)] z-[10000] flex flex-col overflow-hidden transition-all duration-500 border border-black/5 ${
           isOpen
-            ? "opacity-100 translate-x-0 scale-100"
-            : "opacity-0 translate-x-10 scale-95 pointer-events-none"
+            ? "opacity-100 translate-y-0 md:translate-x-0 scale-100"
+            : "opacity-0 translate-y-10 md:translate-x-10 scale-95 pointer-events-none"
         }`}
       >
         {/* Header */}
