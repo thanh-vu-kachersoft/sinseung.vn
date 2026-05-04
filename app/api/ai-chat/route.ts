@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const API_KEY = "AIzaSyDPt_wks3b3gACM3mwRCrnJmLrxPorXQj8";
+const API_KEY = "";
 const genAI = new GoogleGenerativeAI(API_KEY);
 
 const memoryCache: Record<string, { answer: string; timestamp: number }> = {};
