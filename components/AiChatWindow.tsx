@@ -100,7 +100,8 @@ export default function AiChatWindow() {
   return (
     <>
       {/* Floating Trigger Icon */}
-      <div className="relative">
+      <div className="relative" style={{
+    display: "none"}}>
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="relative w-16 h-16 rounded-full overflow-hidden shadow-2xl transition-transform hover:scale-110 active:scale-95 border-2 border-white/20 block"
